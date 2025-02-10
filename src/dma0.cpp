@@ -1,10 +1,10 @@
 // Este código utiliza o framework Arduino e a biblioteca ESP-IDF para realizar amostragem contínua com ADC no ESP32.
-#include <Arduino.h>    // Biblioteca base do framework Arduino, necessária para funções básicas como Serial e delays.
+#include <iikitmini.h>    // Biblioteca base do framework Arduino, necessária para funções básicas como Serial e delays.
 #include <esp_adc/adc_continuous.h> // Biblioteca para modo contínuo com DMA.
 #include "util/jtask.h" // Biblioteca para gerenciamento de tarefas com timers.
 
 // Definições para o ADC e DMA.
-#define ADC_CHANNEL ADC_CHANNEL_0 // Canal ADC configurado para GPIO36.
+#define ADC_CHANNEL ADC_CHANNEL_3 // Canal ADC configurado para GPIO39.
 #define NUM_SAMPLES 1024          // Número máximo de amostras a serem armazenadas.
 #define SAMPLE_RATE 2000          // Taxa de amostragem em Hertz (Hz).
 
@@ -78,15 +78,17 @@ void managerInputFunc(void) {
 
 // Função de configuração do programa.
 void setup() {
-    Serial.begin(115200); // Inicializa a comunicação serial.
+    IIKit.setup();
     setupADC_DMA(); // Configura o ADC e o DMA.
-    jtaskSetup(1000); // Configura o timer para 1000 Hz (1 ms).
-    jtaskAttachFunc(managerInputFunc, 100); // Anexa uma função com base de tempo de 100 ms.
-    jtaskAttachFunc([](){blinkLEDFunc(PINLED);}, 500); // Anexa a função de piscar o LED com base de tempo de 500 ms.
-    jtaskAttachFunc(readDMA, 1); // Anexa a função de leitura do ADC com base de tempo de 1 ms.
+    //jtaskSetup(); // Configura o timer para 1000 Hz (1 ms).
+    //jtaskAttachFunc(managerInputFunc, 100); // Anexa uma função com base de tempo de 100 ms.
+    //jtaskAttachFunc([](){blinkLEDFunc(def_pin_D1);}, 500); // Anexa a função de piscar o LED com base de tempo de 500 ms.
+    //jtaskAttachFunc(readDMA, 100); // Anexa a função de leitura do ADC com base de tempo de 1 ms.
 }
 
 // Loop principal do programa.
 void loop() {
-    jtaskLoop(); // Executa as tarefas enfileiradas.
+    IIKit.loop();
+    readDMA();
+    //jtaskLoop(); // Executa as tarefas enfileiradas.
 }

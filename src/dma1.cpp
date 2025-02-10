@@ -1,4 +1,4 @@
-#include <Arduino.h>         // Biblioteca base do framework Arduino
+#include <iikitmini.h>         // Biblioteca base do framework Arduino
 #include "util/AdcDmaEsp.h"  // Classe para configuração do ADC e DMA
 #include "util/jtask.h"      // Biblioteca para gerenciamento de tarefas com timers
 
@@ -39,17 +39,17 @@ void managerInputFunc() {
 
 // Configuração inicial
 void setup() {
-    Serial.begin(115200); // Inicializa a comunicação serial
-
-    adcDma.setup(2000, ADC_CHANNEL_0, ADC_BITWIDTH_12); // Configura o ADC e DMA (2000 Hz, canal 0, 12 bits)
-    jtaskSetup(1000); // Configura o timer para 1000 Hz (1 ms)
+    IIKit.setup();
+    adcDma.setup(2000, ADC1_CHANNEL, ADC_BITWIDTH_12); // Configura o ADC e DMA (2000 Hz, GPIO39, 12 bits)
+    jtaskSetup(); // Configura o timer para 1000 Hz (1 ms)
 
     jtaskAttachFunc(managerInputFunc, 100); // Executa a leitura e exibição de entradas a cada 100 ms
-    jtaskAttachFunc([]() { blinkLEDFunc(LED_BUILTIN); }, 500); // Alterna o estado do LED a cada 500 ms
+    jtaskAttachFunc([]() { blinkLEDFunc(def_pin_D1); }, 500); // Alterna o estado do LED a cada 500 ms
     jtaskAttachFunc(readDMA, 1); // Processa os dados do ADC a cada 1 ms
 }
 
 // Loop principal
 void loop() {
+    IIKit.loop();
     jtaskLoop(); // Executa as tarefas enfileiradas
 }
