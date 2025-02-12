@@ -1,6 +1,7 @@
 #include <iikitmini.h> // Biblioteca base do framework Arduino
 #include <driver/i2s.h>
 
+
 #ifndef DMA_BUFFERS
   #define DMA_BUFFERS 4
 #endif
