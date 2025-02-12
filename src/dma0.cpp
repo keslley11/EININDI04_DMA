@@ -2,11 +2,11 @@
 #include <driver/i2s.h>
 
 #ifndef DMA_BUFFERS
-#define DMA_BUFFERS 4
+  #define DMA_BUFFERS 4
 #endif
 
 #ifndef BUFFER_LEN
-#define BUFFER_LEN 64
+  #define BUFFER_LEN 64
 #endif
 
 typedef void (*ADCCallback)(const int16_t *data, size_t count);
@@ -57,7 +57,7 @@ void adcDmaLoop()
     // Envia todos os dados de uma vez para otimização
     if (millis() - _last_plot >= _plotInterval)
     {
-      _adcDmaEspcallback(dma_buffer, (uint16_t) (bytes_read / sizeof(int16_t)));
+      _adcDmaEspcallback(dma_buffer, (uint16_t)(bytes_read / sizeof(int16_t)));
       _last_plot = millis();
     }
   }
@@ -66,7 +66,7 @@ void adcDmaLoop()
 // Função para leitura do ADC via DMA
 void readDMA(const int16_t *y, size_t ylen)
 {
-  IIKit.WSerial.plot("adcValue", (uint32_t) 1000, y, ylen); // Plota os valores do ADC no monitor serial
+  IIKit.WSerial.plot("adcValue", (uint32_t)1000, y, ylen); // Plota os valores do ADC no monitor serial
 }
 
 void setup()
