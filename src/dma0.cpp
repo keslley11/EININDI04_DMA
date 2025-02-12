@@ -66,13 +66,13 @@ void adcDmaLoop()
 // Função para leitura do ADC via DMA
 void readDMA(const int16_t *y, size_t ylen)
 {
-  IIKit.WSerial.plot("adcValue", (uint32_t)1000, y, ylen); // Plota os valores do ADC no monitor serial
+  IIKit.WSerial.plot("adcValue", (uint32_t)1, y, ylen); // Plota os valores do ADC no monitor serial
 }
 
 void setup()
 {
   IIKit.setup();
-  adcDmaSetup(ADC1_CHANNEL_3, readDMA, ADC_WIDTH_BIT_12);
+  adcDmaSetup(ADC1_CHANNEL_0, readDMA, ADC_WIDTH_BIT_12);
 }
 
 void loop()
