@@ -9,6 +9,12 @@
 volatile uint8_t sampleIndex = 0;
 uint8_t sineTable[NUMSAMPLES];
 
+void osciloscope(const int16_t *y, size_t ylen)
+{
+   IIKit.WSerial.plot("adcValue", (uint32_t)1000, y, ylen);
+   IIKit.disp.setText(2, ("P1:" + String(y[ylen-1])).c_str());
+} 
+
 void setup()
 {
     IIKit.setup();
@@ -29,8 +35,7 @@ void setup()
     jtaskAttachFunc([]() {
         dacWrite(DAC_PIN, sineTable[sampleIndex]);
         sampleIndex = (sampleIndex + 1) % NUMSAMPLES; }, 10UL);
-    adcDmaSetup(ADC1_CHANNEL_0, [](const int16_t *y, size_t ylen) { 
-        IIKit.WSerial.plot("adcValue", (uint32_t)1000, y, ylen); }, ADC_WIDTH_BIT_12);
+    adcDmaSetup(ADC1_CHANNEL_0, osciloscope, ADC_WIDTH_BIT_12);
 }
 
 void loop()

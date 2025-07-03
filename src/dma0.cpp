@@ -3,8 +3,8 @@
 
 void osciloscope(const int16_t *y, size_t ylen)
 {
-    IIKit.WSerial.plot("adcValue", (uint32_t)1000, y, ylen);
-}
+   IIKit.WSerial.plot("adcValue", (uint32_t)1000, y, ylen);
+} 
 
 void setup()
 {
