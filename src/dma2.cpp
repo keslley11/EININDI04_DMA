@@ -8,7 +8,7 @@
 
 void osciloscope(const int16_t *y, size_t ylen)
 {
-   IIKit.WSerial.plot("adcValue", (uint32_t)1000, y, ylen);
+   IIKit.WSerial.plot("adcValue", (uint32_t)10, y, ylen);
    IIKit.disp.setText(2, ("P1:" + String(y[ylen-1])).c_str());
 } 
 
@@ -41,7 +41,7 @@ void setup()
     //Para gerar uma senoide de 1kHz com 100 amostras, o período total é 1000 µs.
     //Assim, cada amostra deve ser atualizada a cada 1000/100 = 10 µs.
     jtaskAttachFunc(buildWave, 10UL);
-    adcDmaSetup(ADC1_CHANNEL_0, 1000UL, osciloscope, 100000UL, ADC_WIDTH_BIT_12);
+    adcDmaSetup(ADC1_CHANNEL_1, 10UL, osciloscope, 1000UL, ADC_WIDTH_BIT_12);
 }
 
 void loop()
