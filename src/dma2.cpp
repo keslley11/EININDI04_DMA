@@ -3,6 +3,7 @@
 #include "util/jtask.h"
 
 // Configurações para a geração da senoide:
+#define PWM_CHANNEL  0
 #define DAC_PIN 25     // Utiliza o canal DAC1 (GPIO25) do ESP32
 #define NUMSAMPLES 100 // Número de amostras por período da senoide
 
@@ -30,13 +31,16 @@ void makePoints()
 void buildWave()
 {
     static uint8_t sampleIndex = 0;
-    dacWrite(DAC_PIN, sineTable[sampleIndex]);
+    //dacWrite(DAC_PIN, sineTable[sampleIndex]);
+    ledcWrite(PWM_CHANNEL, sineTable[sampleIndex]);
     sampleIndex = (sampleIndex + 1) % NUMSAMPLES;
 }
 
 void setup()
 {
     IIKit.setup();
+    ledcAttachPin(def_pin_DAC1, PWM_CHANNEL);
+    ledcSetup(PWM_CHANNEL, 5000, 10); // Frequência 5 kHz,
     makePoints();
     //Para gerar uma senoide de 1kHz com 100 amostras, o período total é 1000 µs.
     //Assim, cada amostra deve ser atualizada a cada 1000/100 = 10 µs.
