@@ -32,7 +32,7 @@ void buildWave()
 void setup()
 {
     IIKit.setup();
-    ledcAttachPin(def_pin_PWM, PWM_CHANNEL);
+    ledcAttachPin(def_pin_DAC1, PWM_CHANNEL);
     ledcSetup(PWM_CHANNEL, 5000, 10); // Frequência 5 kHz, 10 bits de resolução
     makePoints();
     //Para gerar uma senoide de 1kHz com 100 amostras, o período total é 1000 µs.
