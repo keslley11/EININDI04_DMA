@@ -2,7 +2,6 @@
 #include "util/jtask.h"
 
 // Configurações para a geração da senoide:
-#define DAC_PIN 25     // Utiliza o canal DAC1 (GPIO25) do ESP32
 #define NUMSAMPLES 100 // Número de amostras por período da senoide
 uint8_t sineTable[NUMSAMPLES];
 
@@ -14,8 +13,7 @@ void makePoints()
     {
         float angle = (2 * PI * i) / NUMSAMPLES;
         float s = sin(angle);
-        int dacValue = (int)((s + 1.0) * 127.5); // mapeia: -1 → 0 e 1 → 255
-        sineTable[i] = (uint8_t)dacValue;
+        sineTable[i] = (uint8_t)((s + 1.0) * 127.5); // mapeia: -1 → 0 e 1 → 255
     }
 }
 
@@ -23,7 +21,7 @@ void makePoints()
 void buildWave()
 {
     static uint8_t sampleIndex = 0;
-    dacWrite(DAC_PIN, sineTable[sampleIndex]);
+    dacWrite(def_pin_DAC1, sineTable[sampleIndex]);
     sampleIndex = (sampleIndex + 1) % NUMSAMPLES;
 }
 

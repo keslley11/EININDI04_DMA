@@ -27,6 +27,23 @@
       "attrs": { "color": "green" }
     },
     { "type": "board-ssd1306", "id": "oled1", "top": 99.14, "left": 57.83, "attrs": {} },
+    {
+      "type": "chip-scope",
+      "id": "scope1",
+      "top": 58.62,
+      "left": -609.6,
+      "attrs": {
+        "sampleTimeUs": "100",
+        "sampleTimeMs": "0",
+        "triggerChannel": "0",
+        "triggerMode": "1",
+        "crtColor": "0",
+        "trace0Color": "14",
+        "trace1Color": "12",
+        "trace2Color": "10",
+        "trace3Color": "2"
+      }
+    },
     { "type": "wokwi-potentiometer", "id": "pot1", "top": -39.7, "left": -221, "attrs": {} },
     { "type": "wokwi-slide-switch", "id": "sw1", "top": 215.6, "left": 60.7, "attrs": {} },
     { "type": "wokwi-slide-switch", "id": "sw2", "top": 215.6, "left": 108.7, "attrs": {} },
@@ -105,7 +122,9 @@
     [ "btn1:2.r", "btn2:2.r", "red", [ "h19.4", "v-47.8" ] ],
     [ "btn1:2.l", "esp:32", "green", [ "h-336", "v9.8" ] ],
     [ "pot1:SIG", "esp:VP", "green", [ "v0" ] ],
-    [ "esp:25", "esp:VN", "green", [ "v0", "h-28.65", "v-48" ] ]
+    [ "esp:25", "esp:VN", "green", [ "v0", "h-28.65", "v-48" ] ],
+    [ "esp:VN", "sc1:A0", "green", [ "h0" ] ],
+    [ "scope1:A0", "esp:VN", "green", [ "h0" ] ]
   ],
   "dependencies": { "chip-scope": "github:Dlloydev/Wokwi-Chip-Scope@1.0.7" }
 }
