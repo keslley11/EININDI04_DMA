@@ -110,5 +110,5 @@
     [ "pot2:VCC", "esp:3V3", "red", [ "v0" ] ],
     [ "pot1:SIG", "esp:VP", "green", [ "v0" ] ]
   ],
-  "dependencies": {}
+  "dependencies": { "chip-scope": "github:Dlloydev/Wokwi-Chip-Scope@1.0.7" }
 }
