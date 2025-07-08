@@ -1,7 +1,10 @@
 #include <iikitmini.h> // Biblioteca base do framework Arduino
 #include "util/jtask.h"
 
+
+
 // Configurações para a geração da senoide:
+#define PWM_CHANNEL  0
 #define NUMSAMPLES 100 // Número de amostras por período da senoide
 uint8_t sineTable[NUMSAMPLES];
 
@@ -21,13 +24,16 @@ void makePoints()
 void buildWave()
 {
     static uint8_t sampleIndex = 0;
-    dacWrite(def_pin_DAC1, sineTable[sampleIndex]);
+    //dacWrite(def_pin_DAC1, sineTable[sampleIndex]);
+    ledcWrite(PWM_CHANNEL, sineTable[sampleIndex]);
     sampleIndex = (sampleIndex + 1) % NUMSAMPLES;
 }
 
 void setup()
 {
     IIKit.setup();
+    ledcAttachPin(def_pin_PWM, PWM_CHANNEL);
+    ledcSetup(PWM_CHANNEL, 5000, 10); // Frequência 5 kHz, 10 bits de resolução
     makePoints();
     //Para gerar uma senoide de 1kHz com 100 amostras, o período total é 1000 µs.
     //Assim, cada amostra deve ser atualizada a cada 1000/100 = 10 µs.
