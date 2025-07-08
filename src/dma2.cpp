@@ -39,7 +39,7 @@ void setup()
 {
     IIKit.setup();
     ledcAttachPin(def_pin_DAC1, PWM_CHANNEL);
-    ledcSetup(PWM_CHANNEL, 5000, 10); // Frequência 5 kHz,
+    ledcSetup(PWM_CHANNEL, 500, 10); // Frequência 500Hz,
     makePoints();
     //Para gerar uma senoide de 1kHz com 100 amostras, o período total é 1000 µs.
     //Assim, cada amostra deve ser atualizada a cada 1000/100 = 10 µs.
