@@ -4,7 +4,6 @@
 
 // Configurações para a geração da senoide:
 #define PWM_CHANNEL  0
-#define DAC_PIN 25     // Utiliza o canal DAC1 (GPIO25) do ESP32
 #define NUMSAMPLES 100 // Número de amostras por período da senoide
 
 void osciloscope(const int16_t *y, size_t ylen)
@@ -31,7 +30,7 @@ void makePoints()
 void buildWave()
 {
     static uint8_t sampleIndex = 0;
-    //dacWrite(DAC_PIN, sineTable[sampleIndex]);
+    //dacWrite(def_pin_DAC1, sineTable[sampleIndex]);
     ledcWrite(PWM_CHANNEL, sineTable[sampleIndex]);
     sampleIndex = (sampleIndex + 1) % NUMSAMPLES;
 }
