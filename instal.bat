@@ -1,0 +1,1 @@
+CALL pip install pyserial
